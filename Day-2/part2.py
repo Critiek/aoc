@@ -1,11 +1,5 @@
 games = []
 
-minimum_num_cubes = {
-    'red': 0,
-    'green': 0,
-    'blue': 0,
-}
-
 with open('./input.txt', 'r') as file:
     for game in file:
         games.append(game.strip())
@@ -15,7 +9,7 @@ for game in games:
     game = game.split()[2:]
     game = ''.join(game).split(';')
     for round in game:
-        red_cubes, green_cubes, blue_cubes = [], [], []
+        minimum_red_cubes, minimum_green_cubes, minimum_blue_cubes = [], [], []
         round = round.split(',')
         print(round)
         for draw in round:
@@ -25,4 +19,4 @@ for game in games:
             else:
                 number_of_cubes = draw[0]
                 
-            minimum_num_cubes
+            print(number_of_cubes)
