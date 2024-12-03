@@ -1,20 +1,27 @@
-with open("input.txt", "r") as file:
+test = input("test? y/n\n>")
+
+match test:
+    case "y":
+        path = "test_input.txt"
+    case "n":
+        path = "input.txt"
+
+with open(path, "r") as file:
     data = file.read().strip()
 
 data = data.split("\n")
 
 safe_entries = []
 
-for entry in data:
-    print("\n\n===========\nNew set!\n===========")
+
+def check_entry(entry):
     viable = True
-    entry = entry.split(" ")
+    last_num = 0
     if int(entry[1]) > int(entry[0]):
         ascending = True
     else:
         ascending = False
     print(f"Ascending = {ascending}")
-    last_num = 0
     for iter, num in enumerate(entry):
         print(iter, num)
         if iter > 0 and ascending and last_num > int(num):
@@ -30,6 +37,21 @@ for entry in data:
             print("break at 3")
             break
         last_num = int(num)
+    return viable
+
+
+for entry in data:
+    print("\n\n===========\nNew set!\n===========")
+    viable = True
+    entry = entry.split(" ")
+    viable = check_entry(entry)
+    if not viable:
+        for num in range(len(entry)):
+            temp_entry = entry.copy()
+            del temp_entry[num]
+            viable = check_entry(temp_entry)
+            if viable:
+                break
     if viable:
         safe_entries.append(entry)
     print(f"viable = {viable}")
